@@ -1,4 +1,5 @@
 import os
+from pprint import pprint
 
 from googleapiclient.discovery import build
 
@@ -15,7 +16,7 @@ class Channel:
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel = self.youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
-        print(channel)
+        pprint(channel)
 
     @classmethod
     def get_service(cls):
