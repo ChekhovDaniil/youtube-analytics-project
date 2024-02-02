@@ -10,14 +10,21 @@ class Channel:
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
-        self.channel_id = channel_id
+        self.__channel_id = channel_id
         self.youtube = build('youtube', 'v3', developerKey=self.api_key)
-        self.__channel = self.youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
+        self.__channel = self.youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         from pprint import pprint
         pprint(self.__channel)
+
+    @property
+    def channel_id(self):
+        try:
+            self.__channel_id
+        except:
+            raise AttributeError("property 'channel_id' of 'Channel' object has no setter")
 
     @property
     def channel_name(self):
@@ -34,7 +41,7 @@ class Channel:
     @property
     def channel_url(self):
         """Возвращает ссылку канала"""
-        url = "https://www.youtube.com/channel/" + self.channel_id
+        url = "https://www.youtube.com/channel/" + self.__channel_id
         return url
 
     @property
