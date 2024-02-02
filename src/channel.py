@@ -1,7 +1,7 @@
-import os
-
 from googleapiclient.discovery import build
-
+import json
+from pprint import pprint
+import os
 
 class Channel:
     """Класс для ютуб-канала"""
@@ -16,24 +16,20 @@ class Channel:
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
-        from pprint import pprint
         pprint(self.__channel)
 
     @property
-    def channel_id(self):
-        try:
-            self.__channel_id
-        except:
-            raise AttributeError("property 'channel_id' of 'Channel' object has no setter")
+    def channel_id(self) -> None:
+        raise AttributeError("property 'channel_id' of 'Channel' object has no setter")
 
     @property
-    def channel_name(self):
+    def channel_name(self) -> str:
         """Возвращает название канала"""
         name: str = self.__channel['items'][0]['statistics']['videoCount']
         return name
 
     @property
-    def channel_description(self):
+    def channel_description(self) -> str:
         """Возвращает описание канала"""
         description: str = self.__channel['items'][0]['snippet']['description']
         return description
@@ -45,29 +41,28 @@ class Channel:
         return url
 
     @property
-    def channel_subscriber_count(self):
+    def channel_subscriber_count(self) -> int:
         """Возвращает количество подписчиков канала"""
         subscriber_count: int = self.__channel['items'][0]['statistics']['subscriberCount']
         return subscriber_count
 
     @property
-    def channel_video_count(self):
+    def channel_video_count(self) -> int:
         """Возвращает количество видео канала"""
         video_count: int = self.__channel['items'][0]['snippet']['title']
         return video_count
 
     @property
-    def channel_view_count(self):
+    def channel_view_count(self) -> int:
         """Возвращает количество просмотров канала"""
         view_count: int = self.__channel['items'][0]['statistics']['viewCount']
         return view_count
 
     @classmethod
-    def get_service(cls):
+    def get_service(cls) -> str:
         return cls.youtube
 
-    @staticmethod
-    def to_json(dict_to_print: dict) -> None:
-        """Выводит словарь в json-подобном удобном формате с отступами"""
-        import json
-        print(json.dumps(dict_to_print, indent=2, ensure_ascii=False))
+    def to_json(self, json_file: str) -> None:
+        """Записывает данные канала в указанный аргументом json file"""
+        with open(json_file, 'w', encoding='utf8') as f:
+            json.dump(self.__channel, f, indent=2, ensure_ascii=False)
