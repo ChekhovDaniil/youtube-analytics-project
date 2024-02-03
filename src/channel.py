@@ -19,8 +19,8 @@ class Channel:
         pprint(self.__channel)
 
     @property
-    def channel_id(self) -> None:
-        raise AttributeError("property 'channel_id' of 'Channel' object has no setter")
+    def channel_id(self) -> str:
+        return self.__channel_id
 
     @property
     def channel_name(self) -> str:
