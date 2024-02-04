@@ -36,3 +36,35 @@ class Channel:
         """Записывает данные канала в указанный аргументом json file"""
         with open(json_file, 'w', encoding='utf8') as f:
             json.dump(self.__channel, f, indent=2, ensure_ascii=False)
+
+    def __str__(self) -> str:
+        """Выводит информацию для пользователя"""
+        return f'{self.name} ({self.url})'
+
+    def __add__(self, other) -> int:
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other) -> int:
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __sub__(self, other) -> int:
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other) -> int:
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other) -> bool:
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __lt__(self, other) -> bool:
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __le__(self, other) -> bool:
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __eq__(self, other) -> bool:
+        return int(self.subscriber_count) == int(other.subscriber_count)
+
+    def __repr__(self) -> str:
+        """Выводит информацию для разработчика"""
+        return f'{self.__channel_id, self.__channel, self.video_count, self.description, self.url, self.subscriber_count, self.name, self.view_count}'
