@@ -1,6 +1,6 @@
 {
   "kind": "youtube#channelListResponse",
-  "etag": "MsyKRWdlOpNO3NM-F-BVwGNH86w",
+  "etag": "S7bp3W83HNr7CPrxO-XDzmm0LqU",
   "pageInfo": {
     "totalResults": 1,
     "resultsPerPage": 5
@@ -8,7 +8,7 @@
   "items": [
     {
       "kind": "youtube#channel",
-      "etag": "WEJQP5Xy17FyjEHmwkD9W6WQaDA",
+      "etag": "7wBpS9hoNtAciVeo_VL3lt3PFww",
       "id": "UC-OVMPlMA3-YCIeg4z5z23A",
       "snippet": {
         "title": "MoscowPython",
@@ -39,7 +39,7 @@
         "country": "RU"
       },
       "statistics": {
-        "viewCount": "2505046",
+        "viewCount": "2506864",
         "subscriberCount": "27000",
         "hiddenSubscriberCount": false,
         "videoCount": "730"

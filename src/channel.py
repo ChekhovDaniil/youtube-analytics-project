@@ -14,14 +14,16 @@ class Channel:
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
-        self.video_count = self.get_info()['items'][0]['statistics']['videoCount']
-        self.description: str = self.get_info()['items'][0]['snippet']['description']
+        data = self.get_info()['items'][0]
+        self.video_count = data['statistics']['videoCount']
+        self.description: str = data['snippet']['description']
         self.url = "https://www.youtube.com/channel/" + self.__channel_id
-        self.subscriber_count: int = self.get_info()['items'][0]['statistics']['subscriberCount']
-        self.name: int = self.get_info()['items'][0]['snippet']['title']
-        self.view_count: int = self.get_info()['items'][0]['statistics']['viewCount']
+        self.subscriber_count: int = data['statistics']['subscriberCount']
+        self.name: int = data['snippet']['title']
+        self.view_count: int = data['statistics']['viewCount']
 
     def get_info(self) -> dict:
+        """Если информации в словаре нет, возвращает информацию о канале."""
         if self.__channel is None:
             self.__channel = self.youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
         return self.__channel
