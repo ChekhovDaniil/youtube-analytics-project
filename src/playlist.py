@@ -16,8 +16,9 @@ class PlayList:
     def __init__(self, playlist_id):
         self.playlist_id = playlist_id
         self.url = "https://www.youtube.com/playlist?list=" + self.playlist_id
-        self.title = self.playlist_response()['items'][0]['snippet']['title'][:-13:]
-        self.video_ids: list[str] = [video['contentDetails']['videoId'] for video in self._playlist_data['items']]
+        self.playlist_title = self.youtube.playlists().list(id=self.playlist_id, part='snippet').execute()
+        self.title = self.playlist_title['items'][0]['snippet']['title']
+        self.video_ids: list[str] = [video['contentDetails']['videoId'] for video in self.playlist_response()['items']]
         self.right_id: str = ''
 
     def playlist_response(self) -> dict:
