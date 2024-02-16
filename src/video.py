@@ -10,11 +10,38 @@ class Video:
     youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, video_id: str):
-        self.video_id = video_id
-        self.video_title: str = self.video_response()['items'][0]['snippet']['title']
-        self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
-        self.like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
-        self.comment_count: int = self.video_response()['items'][0]['statistics']['commentCount']
+        try:
+            self.video_id = video_id
+        except self.video_response() is not None:
+            self.title: str = self.video_response()['items'][0]['snippet']['title']
+            self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
+            self.like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
+            self.comment_count: int = self.video_response()['items'][0]['statistics']['commentCount']
+        else:
+            self.title = None
+            self.view_count = None
+            self.like_count = None
+            self.comment_count = None
+
+    # @property
+    # def title(self):
+    #     video_title: str = self.video_response()['items'][0]['snippet']['title']
+    #     return video_title
+    #
+    # @property
+    # def view(self):
+    #     view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
+    #     return view_count
+    #
+    # @property
+    # def like_count(self):
+    #     like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
+    #     return like_count
+    #
+    # @property
+    # def comment_count(self):
+    #     comment_count: int = self.video_response()['items'][0]['statistics']['commentCount']
+    #     return comment_count
 
     def video_response(self) -> dict:
         """Если информации в словаре нет, возвращает информацию о видеоролике."""
@@ -24,10 +51,10 @@ class Video:
         return self._video
 
     def __str__(self):
-        return f'{self.video_title}'
+        return f'{self.title}'
 
     def __repr__(self):
-        return f'{self.video_title, self.view_count, self.like_count, self.comment_count}'
+        return f'{self.title, self.view_count, self.like_count, self.comment_count}'
 
 
 class PLVideo(Video):
