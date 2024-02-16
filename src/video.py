@@ -17,7 +17,6 @@ class Video:
             self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
             self.like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
             self.comment_count: int = self.video_response()['items'][0]['statistics']['commentCount']
-            self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
         else:
             self.title = None
             self.view_count = None
@@ -52,10 +51,10 @@ class Video:
         return self._video
 
     def __str__(self):
-        return f'{self.video_title}'
+        return f'{self.title}'
 
     def __repr__(self):
-        return f'{self.video_title, self.view_count, self.like_count, self.comment_count}'
+        return f'{self.title, self.view_count, self.like_count, self.comment_count}'
 
 
 class PLVideo(Video):
