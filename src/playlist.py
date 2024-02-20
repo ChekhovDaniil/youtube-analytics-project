@@ -1,15 +1,10 @@
-from googleapiclient.discovery import build
-import os
+from src.mixins import Connection
 import isodate
 import datetime
 
 
-class PlayList:
-    # Класс для плейлиста
-    api_key: str = os.getenv('YT_API_KEY')
-    # Специальный объект для работы с API
-    youtube = build('youtube', 'v3', developerKey=api_key)
-    # Другие необходимые атрибуты
+class PlayList(Connection):
+    """Класс для плейлиста"""
     _playlist_data: dict = None
     _video_response: dict = None
 

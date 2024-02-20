@@ -1,13 +1,8 @@
-from googleapiclient.discovery import build
-import os
+from src.mixins import Connection
 
-
-class Video:
-    # Класс для видеоролика
-    api_key: str = os.getenv('YT_API_KEY')
+class Video(Connection):
+    """Класс для видеоролика"""
     _video: dict = None
-    # Специальный объект для работы с API
-    youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, video_id: str):
         try:
