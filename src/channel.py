@@ -1,15 +1,11 @@
-from googleapiclient.discovery import build
 import json
 from pprint import pprint
-import os
+from src.mixins import Connection
 
 
-class Channel:
+class Channel(Connection):
     # Класс для ютуб-канала
-    api_key: str = os.getenv('YT_API_KEY')
     __channel: dict = None
-    # Специальный объект для работы с API
-    youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""

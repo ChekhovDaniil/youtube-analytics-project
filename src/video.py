@@ -1,18 +1,14 @@
-from googleapiclient.discovery import build
-import os
+from src.mixins import Connection
 
 
-class Video:
-    # Класс для видеоролика
-    api_key: str = os.getenv('YT_API_KEY')
+class Video(Connection):
+    """Класс для видеоролика"""
     _video: dict = None
-    # Специальный объект для работы с API
-    youtube = build('youtube', 'v3', developerKey=api_key)
 
     def __init__(self, video_id: str):
         try:
             self.video_id = video_id
-        except self.video_response() is not None:
+        except (KeyError, IndexError, FileNotFoundError, ZeroDivisionError):
             self.title: str = self.video_response()['items'][0]['snippet']['title']
             self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
             self.like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
@@ -49,6 +45,10 @@ class Video:
             self._video = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
                                                      id=self.video_id).execute()
         return self._video
+        # except (KeyError, IndexError):
+        #     return {
+        #         'items': [{'statistics'}: {'title': None, }]
+        #     }
 
     def __str__(self):
         return f'{self.title}'
