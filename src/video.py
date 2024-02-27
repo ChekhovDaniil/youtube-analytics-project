@@ -1,5 +1,6 @@
 from src.mixins import Connection
 
+
 class Video(Connection):
     """Класс для видеоролика"""
     _video: dict = None
@@ -7,7 +8,7 @@ class Video(Connection):
     def __init__(self, video_id: str):
         try:
             self.video_id = video_id
-        except self.video_response() is not None:
+        except (KeyError, IndexError, FileNotFoundError, ZeroDivisionError):
             self.title: str = self.video_response()['items'][0]['snippet']['title']
             self.view_count: int = self.video_response()['items'][0]['statistics']['viewCount']
             self.like_count: int = self.video_response()['items'][0]['statistics']['likeCount']
@@ -44,6 +45,10 @@ class Video(Connection):
             self._video = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
                                                      id=self.video_id).execute()
         return self._video
+        # except (KeyError, IndexError):
+        #     return {
+        #         'items': [{'statistics'}: {'title': None, }]
+        #     }
 
     def __str__(self):
         return f'{self.title}'
